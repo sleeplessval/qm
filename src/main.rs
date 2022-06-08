@@ -36,27 +36,11 @@ fn do_eval(i_expression: String, context: &mut HashMapContext) -> (String, Optio
 	let expression = i_expression.as_str();
 	let i_result = eval_with_context_mut(expression, context);
 	if i_result.is_err() {
-		return (
-			format!("{}🞪 {}{}", color::Fg(color::Red), style::Bold, expression), 
-			None,
-		);
+		return (format!("{}🞪 {}{}", color::Fg(color::Red), style::Bold, expression), None);
 	}
 	let result = i_result.ok().unwrap();
 	if result.is_empty() {
-		return (
-			format!("{}✓ {}{}", color::Fg(color::Green), style::Bold, expression),
-			None,
-		);
+		return (format!("{}✓ {}{}", color::Fg(color::Green), style::Bold, expression), None);
 	}
-	return (
-		format!(
-			"{}{}{}{} = {}",
-			style::Faint,
-			style::Italic,
-			expression,
-			style::Reset,
-			result
-		),
-		Some(result),
-	);
+	return (format!("{}{}{}{} = {}{}", style::Faint, style::Italic, expression, style::Reset, style::Bold, result), Some(result));
 }
