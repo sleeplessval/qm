@@ -7,8 +7,7 @@ use evalexpr::{
 	eval_with_context_mut,
 
 	HashMapContext,
-	Value,
-	ValueType
+	Value
 };
 use termion::{
 	color,
@@ -19,7 +18,7 @@ fn main() {
 	let mut context = HashMapContext::new();
 	let expressions: Vec<String> = env::args().skip(1).collect();
 	if expressions.len() == 0 {
-		println!("{}quickmaths v0.1.1{}\n{}Interactive Mode{}", style::Bold, style::Reset, style::Faint, style::Reset);
+		println!("{}quickmaths v0.1.2{}\n{}Interactive Mode{}", style::Bold, style::Reset, style::Faint, style::Reset);
 		loop {
 			let mut i_line = String::new();
 			let line_result = stdin().read_line(&mut i_line);
