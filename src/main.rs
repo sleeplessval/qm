@@ -23,7 +23,7 @@ fn main() {
 	let mut context = HashMapContext::new();
 	let expressions: Vec<String> = env::args().skip(1).collect();
 	if expressions.len() == 0 {
-		println!("{}quickmaths v0.1.2{}\n{}Interactive Mode{}", style::Bold, style::Reset, style::Faint, style::Reset);
+		println!("{}quickmaths v0.1.3{}\n{}Interactive Mode{}", style::Bold, style::Reset, style::Faint, style::Reset);
 		loop {
 			print!("> ");
 			stdout().flush().unwrap();
