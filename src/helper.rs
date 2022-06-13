@@ -6,6 +6,7 @@ use evalexpr::{
 
 use crate::util;
 
+//	Data Science
 pub fn average(arg: &Value) -> Result<Value, EvalexprError> {
 	let arguments = arg.as_tuple()?;
 	let count = arguments.len() as i64;
@@ -45,6 +46,7 @@ pub fn average(arg: &Value) -> Result<Value, EvalexprError> {
 	}
 }
 
+//	Radix conversion
 pub fn binary(arg: &Value) -> Result<Value, EvalexprError> {
 	if !arg.is_string() {
 		let num = arg.as_int()?;

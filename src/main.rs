@@ -24,10 +24,11 @@ use termion::{
 mod helper;
 mod util;
 
-pub const VERSION: &str = "0.1.4";
+pub const VERSION: &str = "0.1.5";
 
 fn main() {
 	let mut context = context_map! {
+		//	data science functions
 		"avg" => Function::new(|arg| helper::average(arg)),
 
 		//	radix functions
@@ -47,29 +48,34 @@ fn main() {
 				break;
 			}
 			let line = i_line.trim().to_string();
-			if line.is_empty() || line == "exit" {
-				break;
+			match line.as_str() {
+				""		|
+				"exit"	=>	break,
+				_		=>	do_eval(line, &mut context)
 			}
-			let result = do_eval(line, &mut context);
-			println!("{}{}{}", result.0, color::Fg(color::Reset), style::Reset);
+			reset();
 		}
 	} else {
 		for expression in expressions {
-			let result = do_eval(expression, &mut context);
-			println!("{}{}{}", result.0, color::Fg(color::Reset), style::Reset);
+			match expression.as_str() {
+				"help"	=>	help_text(),
+				_		=>	do_eval(expression, &mut context)
+			}
 		}
 	}
 }
 
-fn do_eval(i_expression: String, context: &mut HashMapContext) -> (String, Option<Value>) {
+fn do_eval(i_expression: String, context: &mut HashMapContext) {
 	let expression = i_expression.as_str();
 	let i_result = eval_with_context_mut(expression, context);
 	if i_result.is_err() {
-		return (format!("{}✕ {}{}", color::Fg(color::Red), style::Bold, expression), None);
+		println!("{}✕ {}{}", color::Fg(color::Red), style::Bold, expression);
+		return;
 	}
 	let result = i_result.ok().unwrap();
 	if result.is_empty() {
-		return (format!("{}✓ {}{}", color::Fg(color::Green), style::Bold, expression), None);
+		println!("{}✓ {}{}", color::Fg(color::Green), style::Bold, expression);
+		return;
 	}
 	let delimiter;
 	match result {
@@ -77,6 +83,18 @@ fn do_eval(i_expression: String, context: &mut HashMapContext) -> (String, Optio
 		Value::String(ref _str)		=>	delimiter = "=>",
 		_							=>	delimiter = "="
 	}
-	return (format!("{}{}{}{} {} {}{}", style::Faint, style::Italic,	expression,	style::Reset, delimiter, style::Bold, result), Some(result));
+	println!("{}{}{}{} {} {}{}", style::Faint, style::Italic, expression, style::Reset, delimiter, style::Bold, result);
 }
 
+fn reset() {
+	print!("{}{}", style::Reset, color::Fg(color::Reset));
+	stdout().flush().unwrap();
+}
+
+fn help_text() {
+	println!("{}quickmaths v{}{}", style::Bold, crate::VERSION, style::Reset);
+	println!("Valerie Wolfe <sleeplessval@gmail.com>");
+	println!("A mathematical expression evaluator written in Rust.\n");
+	println!("USAGE:");
+	println!("\tqm [EXPRESSION]...\n");
+}
