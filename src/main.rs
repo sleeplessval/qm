@@ -9,6 +9,8 @@ use std::{
 };
 
 use evalexpr::{
+	context_map,
+
 	eval_with_context_mut,
 
 	HashMapContext,
@@ -19,11 +21,18 @@ use termion::{
 	style
 };
 
+mod helper;
+
+pub const VERSION: &str = "0.1.4";
+
 fn main() {
-	let mut context = HashMapContext::new();
+	let mut context = context_map! {
+		"avg" => Function::new(|arg| helper::average(arg)),
+		"hex" => Function::new(|arg| Ok(helper::hex(arg).unwrap_or(0.into())))
+	}.unwrap();
 	let expressions: Vec<String> = env::args().skip(1).collect();
 	if expressions.len() == 0 {
-		println!("{}quickmaths v0.1.3{}\n{}Interactive Mode{}", style::Bold, style::Reset, style::Faint, style::Reset);
+		println!("{}quickmaths v{}{}\n{}Interactive Mode{}", style::Bold, VERSION, style::Reset, style::Faint, style::Reset);
 		loop {
 			print!("> ");
 			stdout().flush().unwrap();
