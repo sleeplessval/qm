@@ -22,13 +22,18 @@ use termion::{
 };
 
 mod helper;
+mod util;
 
 pub const VERSION: &str = "0.1.4";
 
 fn main() {
 	let mut context = context_map! {
 		"avg" => Function::new(|arg| helper::average(arg)),
-		"hex" => Function::new(|arg| Ok(helper::hex(arg).unwrap_or(0.into())))
+
+		//	radix functions
+		"bin" => Function::new(|arg| helper::binary(arg)),
+		"hex" => Function::new(|arg| helper::hexadecimal(arg)),
+		"oct" => Function::new(|arg| helper::octal(arg))
 	}.unwrap();
 	let expressions: Vec<String> = env::args().skip(1).collect();
 	if expressions.len() == 0 {
@@ -42,7 +47,7 @@ fn main() {
 				break;
 			}
 			let line = i_line.trim().to_string();
-			if line.is_empty() {
+			if line.is_empty() || line == "exit" {
 				break;
 			}
 			let result = do_eval(line, &mut context);

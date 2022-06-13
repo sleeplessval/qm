@@ -4,6 +4,8 @@ use evalexpr::{
 	EvalexprError
 };
 
+use crate::util;
+
 pub fn average(arg: &Value) -> Result<Value, EvalexprError> {
 	let arguments = arg.as_tuple()?;
 	let count = arguments.len() as i64;
@@ -43,23 +45,29 @@ pub fn average(arg: &Value) -> Result<Value, EvalexprError> {
 	}
 }
 
-pub fn hex(arg: &Value) -> Option<Value> {
+pub fn binary(arg: &Value) -> Result<Value, EvalexprError> {
 	if !arg.is_string() {
-		if arg.is_int() {
-			let num = arg.as_int().ok().unwrap();
-			let fmt = format!("0x{:X}", num);
-			return Some(fmt.into());
-		}
-		return None;
+		let num = arg.as_int()?;
+		let fmt = format!("0b{:b}", num);
+		return Ok(fmt.into());
 	}
-	let i_parse = arg.as_string().ok().unwrap();
-	let parse = i_parse.strip_prefix("0x").unwrap_or(i_parse.as_str());
+	util::parse_radix("0b", 2, arg)
+}
 
-	let i_result = i64::from_str_radix(parse, 16);
-	if i_result.is_err() { return None; }
-	let result: Option<i64> = i_result.ok();
-	if result.is_none() { return None; }
+pub fn hexadecimal(arg: &Value) -> Result<Value, EvalexprError> {
+	if !arg.is_string() {
+		let num = arg.as_int()?;
+		let fmt = format!("0x{:X}", num);
+		return Ok(fmt.into());
+	}
+	util::parse_radix("0x", 16, arg)
+}
 
-	let output: Value = result.unwrap().into();
-	return Some(output);
+pub fn octal(arg: &Value) -> Result<Value, EvalexprError> {
+	if !arg.is_string() {
+		let num = arg.as_int()?;
+		let fmt = format!("{:#o}", num);
+		return Ok(fmt.into());
+	}
+	util::parse_radix("0o", 8, arg)
 }
