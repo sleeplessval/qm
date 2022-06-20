@@ -21,6 +21,7 @@ use termion::{
 	style
 };
 
+mod global;
 mod helper;
 mod util;
 
@@ -28,6 +29,10 @@ pub const VERSION: &str = "0.1.5";
 
 fn main() {
 	let mut context = context_map! {
+		//	globals
+		"e"  => global::EULER,
+		"pi" => global::PI,
+
 		//	data science functions
 		"avg" => Function::new(|arg| helper::average(arg)),
 
