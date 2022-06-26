@@ -14,9 +14,7 @@ use evalexpr::{
 	eval_with_context_mut,
 
 	HashMapContext,
-	Value,
-
-	Context
+	Value
 };
 use termion::{
 	color,
