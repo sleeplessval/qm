@@ -14,7 +14,9 @@ use evalexpr::{
 	eval_with_context_mut,
 
 	HashMapContext,
-	Value
+	Value,
+
+	Context
 };
 use termion::{
 	color,
@@ -25,21 +27,32 @@ mod global;
 mod helper;
 mod util;
 
-pub const VERSION: &str = "0.1.5";
+pub const VERSION: &str = "0.2.0";
 
 fn main() {
 	let mut context = context_map! {
 		//	globals
-		"e"  => global::EULER,
-		"pi" => global::PI,
+		"e"		=>	global::EULER,
+		"phi"	=>	global::GOLDEN_RATIO,
+		"pi"	=>	global::PI,
+		"√2"	=>	global::ROOT_TWO,
+
+		//	math functions
+		"log"	=>	Function::new(|arg| helper::logarithm(arg)),
+		"sqrt"	=>	Function::new(|arg| helper::square_root(arg)),
 
 		//	data science functions
-		"avg" => Function::new(|arg| helper::average(arg)),
+		"avg"	=>	Function::new(|arg| helper::average(arg)),
 
 		//	radix functions
-		"bin" => Function::new(|arg| helper::binary(arg)),
-		"hex" => Function::new(|arg| helper::hexadecimal(arg)),
-		"oct" => Function::new(|arg| helper::octal(arg))
+		"bin"	=>	Function::new(|arg| helper::binary(arg)),
+		"hex"	=>	Function::new(|arg| helper::hexadecimal(arg)),
+		"oct"	=>	Function::new(|arg| helper::octal(arg)),
+
+		//	character aliases
+		"ϕ"		=>	global::GOLDEN_RATIO,
+		"π"		=>	global::PI,
+		"√"		=>	Function::new(|arg| helper::square_root(arg))
 	}.unwrap();
 	let expressions: Vec<String> = env::args().skip(1).collect();
 	if expressions.len() == 0 {
