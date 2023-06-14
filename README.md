@@ -9,12 +9,12 @@ data science, and computer science.
 
 ## Constants
 
-|       Name       |  Tokens  |  Type  |        Value        |
---------------------------------------------------------------
-|  Euler's Number  |   `e`    |   f64  | `2.718281828459045` |
-|   Golden Ratio   |  phi, ϕ  |   f64  | `1.618033988749895` |
-|        Pi        |  pi, π   |   f64  | `3.141592653589793` |
-|     Root Two     |    √2    |   f64  | `1.414213562373095` |
+| Name           | Tokens     | Type  | Value               |
+| -------------- | ---------- | ----- | ------------------- |
+| Euler's Number | `e`        | `f64` | `2.718281828459045` |
+| Golden Ratio   | `phi`, `ϕ` | `f64` | `1.618033988749895` |
+| Pi             | `pi`, `π`  | `f64` | `3.141592653589793` |
+| Root Two       | `√2`       | `f64` | `1.414213562373095` |
 
 
 ## Built-in functions
