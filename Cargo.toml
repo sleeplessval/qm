@@ -1,6 +1,6 @@
 [package]
 name = "quickmaths"
-version = "0.2.0"
+version = "0.2.2"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -8,3 +8,12 @@ edition = "2021"
 [dependencies]
 evalexpr = "11.0.0"
 termion = "1.5.6"
+
+[profile.release]
+opt-level = 's'
+codegen-units = 1
+debug = false
+lto = true
+panic = "abort"
+strip = "debuginfo"
+
