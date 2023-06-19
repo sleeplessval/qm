@@ -36,6 +36,7 @@ fn main() {
 		"√2"	=>	global::ROOT_TWO,
 
 		//	math functions
+		"fix"	=>	Function::new(|arg| helper::fix(arg)),
 		"log"	=>	Function::new(|arg| helper::logarithm(arg)),
 		"sqrt"	=>	Function::new(|arg| helper::square_root(arg)),
 

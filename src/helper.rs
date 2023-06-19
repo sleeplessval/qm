@@ -7,6 +7,22 @@ use evalexpr::{
 use crate::util;
 
 //	Mathematics
+pub fn fix(arg: &Value) -> Result<Value, EvalexprError> {
+	let args = arg.as_tuple()?;
+
+	let count = args.len();
+	if count != 2 {
+		return Err(EvalexprError::WrongFunctionArgumentAmount { expected: 2, actual: count });
+	}
+
+	let float = args[0].as_float()?;
+	let figures = args[1].as_int()?;
+
+	let operand: f64 = i64::pow(10, figures as u32) as f64;
+	let output = f64::round(float * operand) / operand;
+	return Ok(output.into());
+}
+
 pub fn logarithm(arg: &Value) -> Result<Value, EvalexprError> {
 	let arguments: Vec<Value>;
 	let count: usize;
