@@ -11,6 +11,6 @@ More information is available on the [project wiki](https://git.vwolfe.io/valeri
 
 ## Libraries
 
-- [evalexpr](https://crates.io/crates/evalexpr)
-- [termion](https://crates.io/crates/termion)
+- [evalexpr](https://crates.io/crates/evalexpr) — expression evaluator
+- [termion](https://crates.io/crates/termion) — ANSI formatting
 
