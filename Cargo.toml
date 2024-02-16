@@ -1,6 +1,6 @@
 [package]
 name = "quickmaths"
-version = "0.2.2"
+version = "0.2.3"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -15,5 +15,5 @@ codegen-units = 1
 debug = false
 lto = true
 panic = "abort"
-strip = "debuginfo"
+strip = "symbols"
 

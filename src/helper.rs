@@ -6,8 +6,11 @@ use evalexpr::{
 
 use crate::util;
 
+pub type EvalResult = Result<Value, EvalexprError>;
+
+
 //	Mathematics
-pub fn fix(arg: &Value) -> Result<Value, EvalexprError> {
+pub fn fix(arg: &Value) -> EvalResult {
 	let args = arg.as_tuple()?;
 
 	let count = args.len();
@@ -23,7 +26,7 @@ pub fn fix(arg: &Value) -> Result<Value, EvalexprError> {
 	return Ok(output.into());
 }
 
-pub fn logarithm(arg: &Value) -> Result<Value, EvalexprError> {
+pub fn logarithm(arg: &Value) -> EvalResult {
 	let arguments: Vec<Value>;
 	let count: usize;
 	if arg.is_tuple() {
@@ -66,7 +69,7 @@ pub fn logarithm(arg: &Value) -> Result<Value, EvalexprError> {
 	return Ok(output);
 }
 
-pub fn square_root(arg: &Value) -> Result<Value, EvalexprError> {
+pub fn square_root(arg: &Value) -> EvalResult {
 	if !arg.is_number() {
 		return Err(EvalexprError::CustomMessage("Expected a number.".to_string()));
 	}
@@ -74,8 +77,9 @@ pub fn square_root(arg: &Value) -> Result<Value, EvalexprError> {
 	return Ok(value.sqrt().into());
 }
 
+
 //	Data Science
-pub fn average(arg: &Value) -> Result<Value, EvalexprError> {
+pub fn average(arg: &Value) -> EvalResult {
 	let arguments = arg.as_tuple()?;
 	let count = arguments.len() as i64;
 	let mut is_float = false;
@@ -115,7 +119,7 @@ pub fn average(arg: &Value) -> Result<Value, EvalexprError> {
 }
 
 //	Radix conversion
-pub fn binary(arg: &Value) -> Result<Value, EvalexprError> {
+pub fn binary(arg: &Value) -> EvalResult {
 	if !arg.is_string() {
 		let num = arg.as_int()?;
 		let fmt = format!("0b{:b}", num);
@@ -124,7 +128,7 @@ pub fn binary(arg: &Value) -> Result<Value, EvalexprError> {
 	util::parse_radix("0b", 2, arg)
 }
 
-pub fn hexadecimal(arg: &Value) -> Result<Value, EvalexprError> {
+pub fn hexadecimal(arg: &Value) -> EvalResult {
 	if !arg.is_string() {
 		let num = arg.as_int()?;
 		let fmt = format!("0x{:X}", num);
@@ -133,7 +137,7 @@ pub fn hexadecimal(arg: &Value) -> Result<Value, EvalexprError> {
 	util::parse_radix("0x", 16, arg)
 }
 
-pub fn octal(arg: &Value) -> Result<Value, EvalexprError> {
+pub fn octal(arg: &Value) -> EvalResult {
 	if !arg.is_string() {
 		let num = arg.as_int()?;
 		let fmt = format!("{:#o}", num);
