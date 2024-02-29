@@ -31,6 +31,7 @@ fn main() {
 	//	build eval context
 	let mut context = context_map! {
 		//	globals
+		"c"		=>	global::LIGHT_SPEED,
 		"e"		=>	global::EULER,
 		"phi"	=>	global::GOLDEN_RATIO,
 		"pi"	=>	global::PI,
