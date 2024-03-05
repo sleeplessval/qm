@@ -1,9 +1,11 @@
 [package]
-name = "quickmaths"
+name = "quickmath"
 version = "0.2.3"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "qm"
+path = "src/main.rs"
 
 [dependencies]
 evalexpr = "11.0.0"

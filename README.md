@@ -1,5 +1,5 @@
 
-# quickmaths
+# quickmath (qm)
 
 A small, pretty command line calculator.
 
