@@ -2,6 +2,11 @@
 name = "quickmath"
 version = "0.2.3"
 edition = "2021"
+authors = [ "Valerie Wolfe <sleeplessval@gmail.com>" ]
+description = "A quick command-line math evaluator."
+homepage = "https://git.vwolfe.io/valerie/qm"
+repository = "https://git.vwolfe.io/valerie/qm"
+license = "MIT"
 
 [[bin]]
 name = "qm"
