@@ -15,7 +15,7 @@ pub fn fix(arg: &Value) -> EvalResult {
 
 	let count = args.len();
 	if count != 2 {
-		return Err(EvalexprError::WrongFunctionArgumentAmount { expected: 2, actual: count });
+		return Err(EvalexprError::WrongFunctionArgumentAmount { expected: 2..=2, actual: count });
 	}
 
 	let float = args[0].as_float()?;
@@ -63,7 +63,7 @@ pub fn logarithm(arg: &Value) -> EvalResult {
 			output = value.log(base).into();
 		},
 		_ => {
-			return Err(EvalexprError::WrongFunctionArgumentAmount { expected: 2, actual: count });
+			return Err(EvalexprError::WrongFunctionArgumentAmount { expected: 2..=2, actual: count });
 		}
 	}
 	return Ok(output);
